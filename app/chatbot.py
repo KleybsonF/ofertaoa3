@@ -45,6 +45,32 @@ COMO USAR (página "Faça sua cotação", aberta pelo botão "Economize já" da 
 Em "Ajustes (opcional)" dá para mudar a distância máxima (padrão 15 km, de 1 a 100 km) e o gasto
 com transporte por km (padrão R$ 0,80/km).
 
+AGENTE DE IA (caixa "🤖 Agente de IA", no topo da página de cotação, acima de "Onde você está"):
+É um atalho para fazer a cotação escrevendo o pedido do jeito que você falaria, sem montar a lista
+item por item. Como usar:
+1. (Recomendado) Antes, diga onde você está em "Onde você está" (CEP, bairro ou "Usar minha
+   localização"): o agente usa essa posição. Sem ela, ele tenta achar um bairro ou cidade escrito no
+   pedido (ex.: "no Alecrim", "em Parnamirim") e, se não achar, usa o centro de Natal.
+2. Escrever o pedido na caixa de texto, por exemplo: "Quero 2 pacotes de arroz, feijão, café, leite e
+   frango, só tenho 65 reais". Dá para dizer quantidades ("2 pacotes de arroz") e um limite de gasto.
+   Também dá para tocar num dos exemplos prontos abaixo da caixa ("Exemplo com orçamento" ou
+   "Cesta básica via IA") para preencher o texto.
+3. (Opcional) Digitar um limite de gasto no campo "Orçamento R$" (ou escrever no próprio pedido,
+   como "tenho 65 reais").
+4. Tocar em "✨ Perguntar ao Agente" e aguardar ("Agente raciocinando...").
+O agente responde com um resumo e mostra a mesma tela de resultado da cotação normal (loja mais
+barata, total, mapa e rota). Abaixo da resposta aparecem as "Ferramentas acionadas pelo Agente", os
+passos que ele seguiu: achar a localização, encontrar os produtos no banco de dados e calcular a
+melhor compra. Se a compra passar do orçamento, ele avisa e sugere tirar o item mais caro para caber
+no valor, mostrando o novo total.
+Dicas: use nomes simples de produtos da feira (arroz, feijão, café, açúcar, óleo, leite, macarrão,
+molho, frango, ovos, manteiga, margarina, pão, biscoito, flocão/cuscuz, farinha, sal, sardinha,
+detergente, sabão, água sanitária, papel higiênico, creme dental, sabonete). Se nenhum produto for
+reconhecido, ele monta uma cesta básica padrão. Se não aparecer loja, aumente a distância em
+"Ajustes (opcional)". A distância máxima configurada em Ajustes também vale para o agente.
+Diferença: este assistente de dúvidas (o chat) só explica como o site funciona; quem calcula preços a
+partir de um pedido escrito é o Agente de IA da página de cotação.
+
 O RESULTADO mostra: a loja mais barata, o total (produtos + transporte), quanto você economiza em
 relação à opção mais cara, o preço de cada produto ("Ver preço de cada produto") e as outras opções
 em ordem. O mapa mostra as lojas e a rota até a escolhida. Quando passar em DUAS lojas próximas
@@ -181,6 +207,15 @@ def _chamar_anthropic(p: Provedor, sistema: str, mensagens: list[dict]) -> str:
 # ---------- FAQ local (sem IA externa) ----------
 
 FAQ: list[tuple[tuple[str, ...], str]] = [
+    (("agente", "o agente", "agente de ia", "usar o agente", "inteligencia artificial", "robo", "escrever o pedido", "escrevendo", "pedido escrito",
+      "orcamento", "so tenho", "perguntar ao agente"),
+     "O **Agente de IA** fica no topo da página de cotação (caixa \"🤖 Agente de IA\"). Como usar: "
+     "**1)** diga onde você está em \"Onde você está\" (ou escreva o bairro no pedido); "
+     "**2)** escreva o pedido normalmente, ex.: \"Quero 2 pacotes de arroz, feijão, café e leite, só tenho 65 reais\", "
+     "ou toque num dos exemplos prontos; **3)** se quiser, coloque um limite em \"Orçamento R$\"; "
+     "**4)** toque em \"✨ Perguntar ao Agente\". Ele encontra os produtos, calcula a loja mais barata com o "
+     "transporte e, se passar do orçamento, sugere tirar o item mais caro. Os passos que ele seguiu aparecem "
+     "em \"Ferramentas acionadas pelo Agente\"."),
     (("gratis", "gratuito", "pagar", "pago", "custa", "cadastro", "criar conta", "login"),
      "O Ofertão é **totalmente gratuito** e não precisa de cadastro: é só abrir a página de cotação e usar."),
     (("como usar", "como funciona", "comecar", "passo", "cotacao", "usar o site"),
@@ -220,8 +255,8 @@ FAQ: list[tuple[tuple[str, ...], str]] = [
 ]
 
 RESPOSTA_PADRAO = (
-    "Posso ajudar com dúvidas sobre o Ofertão: como fazer a cotação, como o cálculo funciona, de onde vêm "
-    "os preços e quais cidades são atendidas. O que você quer saber?"
+    "Posso ajudar com dúvidas sobre o Ofertão: como fazer a cotação, como usar o Agente de IA, como o "
+    "cálculo funciona, de onde vêm os preços e quais cidades são atendidas. O que você quer saber?"
 )
 
 
